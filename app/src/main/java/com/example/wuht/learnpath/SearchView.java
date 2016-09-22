@@ -129,8 +129,16 @@ public class SearchView extends View {
     private void drawPath(Canvas canvas) {
 
         canvas.translate(mWidth / 2, mHeight / 2);
+
+
         switch (mState) {
             case SEARCHING:
+                if (currentAnimatorValue > 0.99) {
+                    mPathMeasure.setPath(mCirclePath, false);
+                    Path path = new Path();
+                    mPathMeasure.getSegment(0, 20, path, true);//如果是点的话，可以通过这个来解决闪一下的问题，这个是个线要解决有些麻烦
+                    //canvas.drawPath(path,mPaint);
+                }
                 mPathMeasure.setPath(mCirclePath, false);
                 Path circlePath = new Path();
                 mPathMeasure.getSegment(mPathMeasure.getLength() * currentAnimatorValue - 30, mPathMeasure.getLength() * currentAnimatorValue, circlePath, true);
